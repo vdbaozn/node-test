@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add User</title>
+</head>
+<body>
+  <h2>Add User</h2>
+  <form id="addUserForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="age">Age:</label><br>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <button type="submit">Add User</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('addUserForm');
+
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const requestBody = Object.fromEntries(formData);
+
+      try {
+        const response = await fetch('/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to add user');
+        }
+
+        const data = await response.json();
+        console.log('User added:', data);
+        alert('User added successfully!');
+        form.reset();
+      } catch (error) {
+        console.error('Error adding user:', error);
+        alert('Failed to add user');
+      }
+    });
+  </script>
+</body>
+</html>

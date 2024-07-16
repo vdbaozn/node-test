@@ -1,0 +1,24 @@
+111
+<%- include('header', { title: 'User List' }) %>
+
+    <h2>User List</h2>
+    <table border="1">
+        <% users.forEach(user=> { %>
+            <tr>
+                <td>
+                    <%= user.name %>
+                </td>
+                <td>
+                    <%= user.age %> years old
+                </td>
+                <td>
+                    <%= user.email %>
+                </td>
+                <td><a href="users/<%= user._id %>/edit">edit</a></td>
+                <td><a href="users/<%= user._id %>/del">del</a></td>
+            </tr>
+            <% }); %>
+    </table>
+    </body>
+
+    </html>
